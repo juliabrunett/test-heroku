@@ -6,16 +6,25 @@ import os
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# DATABASE CONNECTION: ADDED BY JULIA
-# Import config
-from config import api_key, db_user, db_password, db_host, db_port, db_name
-from sqlalchemy import create_engine, inspect
-# configure the connection string
-rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
-# connect to the database
-engine = create_engine(rds_connection_string)
-conn = engine.connect()
-# END OF ADDED BY JULIA
+# SQL ALCHEMY
+from flask_sqlalchemy import SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
+
+# Remove tracking modifications
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# # DATABASE CONNECTION: ADDED BY JULIA
+# # Import config
+# from config import api_key, db_user, db_password, db_host, db_port, db_name
+# from sqlalchemy import create_engine, inspect
+# # configure the connection string
+# rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
+# # connect to the database
+# engine = create_engine(rds_connection_string)
+# conn = engine.connect()
+# # END OF ADDED BY JULIA
 
 #Could perform train_test_split and metrics.accuracy_score test if needed.   
 #from sklearn.model_selection import train_test_split
@@ -106,8 +115,8 @@ def similarity(name_of_movie):
   topnofilter = nofilter.iloc[1:21:1]
 
   # Drop previous table
-  engine.execute('DROP TABLE IF EXISTS no_filter')
-  topnofilter.to_sql(name='no_filter', con=conn, if_exists='append', index=False)
+  db.engine.execute('DROP TABLE IF EXISTS no_filter')
+  topnofilter.to_sql(name='no_filter', con=db.engine, if_exists='append', index=False)
 
   # f = open("./static/data/nofilterdata.js", "w")
   # f.write("var data = ")
@@ -121,8 +130,8 @@ def similarity(name_of_movie):
   # top_fem = female_led[:20].to_json(orient="records")
   top_fem = female_led[:20]
 
-  engine.execute('DROP TABLE IF EXISTS female_led')
-  top_fem.to_sql(name='female_led', con=conn, if_exists='append', index=False)
+  db.engine.execute('DROP TABLE IF EXISTS female_led')
+  top_fem.to_sql(name='female_led', con=db.engine, if_exists='append', index=False)
 
   # f = open("./static/data/femaledata.js", "w")
   # f.write("var data = ")
@@ -135,8 +144,8 @@ def similarity(name_of_movie):
   # top_intl = international[:20].to_json(orient="records")
   top_intl = international[:20]
 
-  engine.execute('DROP TABLE IF EXISTS international')
-  top_intl.to_sql(name='international', con=conn, if_exists='append', index=False)
+  db.engine.execute('DROP TABLE IF EXISTS international')
+  top_intl.to_sql(name='international', con=db.engine, if_exists='append', index=False)
   # f = open("./static/data/intldata.js", "w")
   # f.write("var data = ")
   # f.write(top_intl)
@@ -150,8 +159,8 @@ def similarity(name_of_movie):
   top_lowbudget = low_budget[:20]
   # print(top_lowbudget)
 
-  engine.execute('DROP TABLE IF EXISTS low_budget')
-  top_lowbudget.to_sql(name='low_budget', con=conn, if_exists='append', index=False)
+  db.engine.execute('DROP TABLE IF EXISTS low_budget')
+  top_lowbudget.to_sql(name='low_budget', con=db.engine, if_exists='append', index=False)
 
   # f = open("./static/data/lowbudgetdata.js", "w")
   # f.write("var data = ")
