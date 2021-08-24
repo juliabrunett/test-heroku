@@ -154,4 +154,4 @@ def explore_unpop_lowbudget():
   return render_template("em_unpop_low.html")
 
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run()
