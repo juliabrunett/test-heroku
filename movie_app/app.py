@@ -5,6 +5,7 @@ import movie_app.similarity as similarity
 from flask import request
 from flask import make_response
 import os
+import re
 
 # JULIA ADDED: FOR SQL
 import sqlalchemy
@@ -19,6 +20,8 @@ app = Flask(__name__)
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 engine = create_engine(DATABASE_URL)

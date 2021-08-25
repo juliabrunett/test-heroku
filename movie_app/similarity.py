@@ -1,7 +1,5 @@
 # from app import lowbudget
 import pandas as pd
-import os
-import psycopg2
 
 #To set up similarity matrix
 from sklearn.feature_extraction.text import CountVectorizer
@@ -18,8 +16,15 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # db = SQLAlchemy(app)
+import os
+import psycopg2
+import re
 
+# uri = os.getenv("DATABASE_URL")  # or other relevant config var
 DATABASE_URL = os.environ['DATABASE_URL']
+
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
