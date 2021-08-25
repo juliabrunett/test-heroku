@@ -2,6 +2,7 @@
 #import pandas as pd
 from flask import Flask, render_template, redirect, request, url_for, jsonify
 import movie_app.similarity as similarity
+# import similarity
 from flask import request
 from flask import make_response
 import os
@@ -22,26 +23,9 @@ DATABASE_URL = os.environ['DATABASE_URL']
 
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
-# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 engine = create_engine(DATABASE_URL)
 conn = engine.connect()
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
-# Remove tracking modifications
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# db = SQLAlchemy(app)
-
-# Movie = create_classes(db)
-
-# movie = Movie(name=name, lat=lat, lon=lon)
-# db.session.add(pet)
-# db.session.commit()
-
-# Build engine
-# engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
-# END OF ADDED: FOR SQL
 
 
 # Route to index.html template
@@ -61,7 +45,7 @@ def similarity_scores():
     name_of_movie = similarity.similarity(title)
 
   # Define the response
-  resp = make_response(render_template('index.html', title=title))
+  resp = make_response(render_template('searched.html', title=title))
   resp.set_cookie('search', title)
 
   return resp

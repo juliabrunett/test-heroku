@@ -9,31 +9,20 @@ from sklearn.metrics.pairwise import cosine_similarity
 from flask import Flask
 app = Flask(__name__)
 
-# from flask_sqlalchemy import SQLAlchemy
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
-
-# # Remove tracking modifications
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# db = SQLAlchemy(app)
 import os
 import psycopg2
 import re
 
-# uri = os.getenv("DATABASE_URL")  # or other relevant config var
 DATABASE_URL = os.environ['DATABASE_URL']
 
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 # # DATABASE CONNECTION: ADDED BY JULIA
 # # Import config
 # from config import api_key, db_user, db_password, db_host, db_port, db_name
 from sqlalchemy import create_engine, inspect
-# # configure the connection string
-# rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
 # # connect to the database
 engine = create_engine(DATABASE_URL)
 conn = engine.connect()
@@ -120,8 +109,6 @@ def similarity(name_of_movie):
   #   print("lowbudgetdata.js has been removed")
   # except:
   #   print("No data files to remove")
-
-  
 
   # No filter 
   nofilter = joined_df.sort_values(by="similarity_score", ascending=False)
