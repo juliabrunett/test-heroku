@@ -121,6 +121,8 @@ def similarity(name_of_movie):
   # except:
   #   print("No data files to remove")
 
+  conn.open()
+  
   # No filter 
   nofilter = joined_df.sort_values(by="similarity_score", ascending=False)
   # nofilter.fillna('', inplace=True)

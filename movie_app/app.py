@@ -121,6 +121,7 @@ def explore_unpop_lowbudget():
 # Route to low budget api
 @app.route("/api/low_budget")
 def api_low_budget():
+  conn.open()
   # Read in low budget table
   results = pd.read_sql('SELECT * FROM low_budget', conn)
   conn.close()
@@ -133,6 +134,7 @@ def api_low_budget():
 # Route to female api
 @app.route("/api/female_led")
 def api_female_led():
+  conn.open()
   # Read in low budget table
   results = pd.read_sql('SELECT * FROM female_led', conn)
   conn.close()
@@ -145,6 +147,7 @@ def api_female_led():
 # Route to international api
 @app.route("/api/international")
 def api_international():
+  conn.open()
   # Read in low budget table
   results = pd.read_sql('SELECT * FROM international', conn)
   conn.close()
@@ -157,6 +160,7 @@ def api_international():
 # Route to no filter api
 @app.route("/api/no_filter")
 def api_no_filter():
+  conn.open()
   # Read in low budget table
   results = pd.read_sql('SELECT * FROM no_filter', conn)
   conn.close()
