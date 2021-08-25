@@ -19,7 +19,10 @@ app = Flask(__name__)
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+engine = create_engine(DATABASE_URL)
+conn = engine.connect()
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 # Remove tracking modifications

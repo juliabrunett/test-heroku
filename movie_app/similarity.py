@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 # # DATABASE CONNECTION: ADDED BY JULIA
 # # Import config
@@ -30,8 +30,8 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 # # configure the connection string
 # rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
 # # connect to the database
-# engine = create_engine(rds_connection_string)
-# conn = engine.connect()
+engine = create_engine(DATABASE_URL)
+conn = engine.connect()
 # # END OF ADDED BY JULIA
 
 #Could perform train_test_split and metrics.accuracy_score test if needed.   
@@ -123,7 +123,7 @@ def similarity(name_of_movie):
   topnofilter = nofilter.iloc[1:21:1]
 
   # Drop previous table
-  db.engine.execute('DROP TABLE IF EXISTS no_filter')
+  engine.execute('DROP TABLE IF EXISTS no_filter')
   topnofilter.to_sql(name='no_filter', con=conn, if_exists='append', index=False)
 
   # f = open("./static/data/nofilterdata.js", "w")
@@ -138,7 +138,7 @@ def similarity(name_of_movie):
   # top_fem = female_led[:20].to_json(orient="records")
   top_fem = female_led[:20]
 
-  db.engine.execute('DROP TABLE IF EXISTS female_led')
+  engine.execute('DROP TABLE IF EXISTS female_led')
   top_fem.to_sql(name='female_led', con=conn, if_exists='append', index=False)
 
   # f = open("./static/data/femaledata.js", "w")
@@ -152,7 +152,7 @@ def similarity(name_of_movie):
   # top_intl = international[:20].to_json(orient="records")
   top_intl = international[:20]
 
-  db.engine.execute('DROP TABLE IF EXISTS international')
+  engine.execute('DROP TABLE IF EXISTS international')
   top_intl.to_sql(name='international', con=conn, if_exists='append', index=False)
   # f = open("./static/data/intldata.js", "w")
   # f.write("var data = ")
@@ -167,7 +167,7 @@ def similarity(name_of_movie):
   top_lowbudget = low_budget[:20]
   # print(top_lowbudget)
 
-  db.engine.execute('DROP TABLE IF EXISTS low_budget')
+  engine.execute('DROP TABLE IF EXISTS low_budget')
   top_lowbudget.to_sql(name='low_budget', con=conn, if_exists='append', index=False)
 
   # f = open("./static/data/lowbudgetdata.js", "w")
