@@ -11,6 +11,9 @@ from sqlalchemy import create_engine, func
 from config import db_user, db_password, db_host, db_name, db_port
 import pandas as pd
 
+# Create an instance of Flask
+app = Flask(__name__)
+
 from flask_sqlalchemy import SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
 
@@ -29,8 +32,7 @@ db = SQLAlchemy(app)
 # engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
 # END OF ADDED: FOR SQL
 
-# Create an instance of Flask
-app = Flask(__name__)
+
 
 # Route to index.html template
 @app.route("/")
