@@ -4,6 +4,7 @@ from flask import Flask, render_template, redirect, request, url_for, jsonify
 import movie_app.similarity
 from flask import request
 from flask import make_response
+import os
 
 # JULIA ADDED: FOR SQL
 import sqlalchemy
