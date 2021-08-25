@@ -8,7 +8,7 @@ from flask import make_response
 # JULIA ADDED: FOR SQL
 import sqlalchemy
 from sqlalchemy import create_engine, func
-from config import db_user, db_password, db_host, db_name, db_port
+# from config import db_user, db_password, db_host, db_name, db_port
 import pandas as pd
 
 # Create an instance of Flask
