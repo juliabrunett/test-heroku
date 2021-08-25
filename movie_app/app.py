@@ -45,10 +45,18 @@ def similarity_scores():
     name_of_movie = similarity.similarity(title)
 
   # Define the response
-  resp = make_response(render_template('searched.html', title=title))
+  resp = make_response(render_template('index.html', title=title))
   resp.set_cookie('search', title)
 
   return resp
+
+
+# Add additional route for searched
+@app.route("/searched")
+def searched():
+  name = request.cookies.get('search')
+  # Return index template
+  return render_template("searched.html", title=name)
 
 # Get cookies
 @app.route('/getcookie')
