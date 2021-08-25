@@ -123,6 +123,7 @@ def explore_unpop_lowbudget():
 def api_low_budget():
   # Read in low budget table
   results = pd.read_sql('SELECT * FROM low_budget', conn)
+  conn.close()
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -134,6 +135,7 @@ def api_low_budget():
 def api_female_led():
   # Read in low budget table
   results = pd.read_sql('SELECT * FROM female_led', conn)
+  conn.close()
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -145,6 +147,7 @@ def api_female_led():
 def api_international():
   # Read in low budget table
   results = pd.read_sql('SELECT * FROM international', conn)
+  conn.close()
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -156,6 +159,7 @@ def api_international():
 def api_no_filter():
   # Read in low budget table
   results = pd.read_sql('SELECT * FROM no_filter', conn)
+  conn.close()
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -163,7 +167,7 @@ def api_no_filter():
   return results_json
 # END OF ADDED: FOR SQL
 
-conn.close()
+
 
 if __name__ == "__main__":
   app.run()

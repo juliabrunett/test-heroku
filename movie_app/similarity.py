@@ -182,4 +182,4 @@ def similarity(name_of_movie):
 
   # data = {"low_budget": top_lowbudget, "international": top_intl, "female_led": top_fem, "all": topnofilter}
   # return data
-  # conn.close()
+  conn.close()
