@@ -1,7 +1,7 @@
 #import psycopg2
 #import pandas as pd
 from flask import Flask, render_template, redirect, request, url_for, jsonify
-import similarity
+import movie_app.similarity
 from flask import request
 from flask import make_response
 
