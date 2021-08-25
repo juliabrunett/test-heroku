@@ -36,7 +36,7 @@ db = SQLAlchemy(app)
 
 def similarity(name_of_movie):
   #import csv
-  df = pd.read_csv("./data_cleaning/export/movie_db.csv")
+  df = pd.read_csv("movie_app/data_cleaning/export/movie_db.csv")
 
   # Robin: lowercase code 
   name_of_movie = name_of_movie.lower()
