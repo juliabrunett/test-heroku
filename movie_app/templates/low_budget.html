@@ -44,6 +44,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/explore">Explore</a>
                 </li>
+                <!-- GRAB MOVIE TITLE & RUN SIMILARITY.PY  -->
+                <form action="{{ url_for('similarity_scores') }}" method="post">
+                    <input type="text" name = 'nm' placeholder="        Search Movie" name="chosenTitle">
+                    <input type="submit" value="search" id="submit_button">
+                </form>
             </ul>
             
         </div>
@@ -94,6 +99,7 @@
         </div>
 
     </div> <!-- Close container -->
+</div>
 
     <!-- Import files & dependencies -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
