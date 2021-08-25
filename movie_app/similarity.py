@@ -26,7 +26,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 # # DATABASE CONNECTION: ADDED BY JULIA
 # # Import config
 # from config import api_key, db_user, db_password, db_host, db_port, db_name
-# from sqlalchemy import create_engine, inspect
+from sqlalchemy import create_engine, inspect
 # # configure the connection string
 # rds_connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
 # # connect to the database
