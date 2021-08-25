@@ -11,17 +11,21 @@ import sqlalchemy
 from sqlalchemy import create_engine, func
 # from config import db_user, db_password, db_host, db_name, db_port
 import pandas as pd
+import psycopg2
+from flask_sqlalchemy import SQLAlchemy
 
 # Create an instance of Flask
 app = Flask(__name__)
 
-from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
+DATABASE_URL = os.environ['DATABASE_URL']
 
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 # Remove tracking modifications
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 # Movie = create_classes(db)
 
@@ -32,7 +36,6 @@ db = SQLAlchemy(app)
 # Build engine
 # engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
 # END OF ADDED: FOR SQL
-
 
 
 # Route to index.html template
@@ -113,7 +116,7 @@ def explore_unpop_lowbudget():
 @app.route("/api/low_budget")
 def api_low_budget():
   # Read in low budget table
-  results = pd.read_sql('SELECT * FROM low_budget', db)
+  results = pd.read_sql('SELECT * FROM low_budget', conn)
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -124,7 +127,7 @@ def api_low_budget():
 @app.route("/api/female_led")
 def api_female_led():
   # Read in low budget table
-  results = pd.read_sql('SELECT * FROM female_led', db)
+  results = pd.read_sql('SELECT * FROM female_led', conn)
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -135,7 +138,7 @@ def api_female_led():
 @app.route("/api/international")
 def api_international():
   # Read in low budget table
-  results = pd.read_sql('SELECT * FROM international', db)
+  results = pd.read_sql('SELECT * FROM international', conn)
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
@@ -146,13 +149,15 @@ def api_international():
 @app.route("/api/no_filter")
 def api_no_filter():
   # Read in low budget table
-  results = pd.read_sql('SELECT * FROM no_filter', db)
+  results = pd.read_sql('SELECT * FROM no_filter', conn)
 
   # Convert results to json
   results_json = results.to_json(orient='records') 
 
   return results_json
 # END OF ADDED: FOR SQL
+
+conn.close()
 
 if __name__ == "__main__":
   app.run()
