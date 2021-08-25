@@ -32,54 +32,6 @@ db = SQLAlchemy(app)
 # Create an instance of Flask
 app = Flask(__name__)
 
-# JULIA ADDED: FOR SQL
-# Route to low budget api
-@app.route("/api/low_budget")
-def api_low_budget():
-  # Read in low budget table
-  results = pd.read_sql('SELECT * FROM low_budget', db)
-
-  # Convert results to json
-  results_json = results.to_json(orient='records') 
-
-  return results_json
-  
-# Route to female api
-@app.route("/api/female_led")
-def api_female_led():
-  # Read in low budget table
-  results = pd.read_sql('SELECT * FROM female_led', db)
-
-  # Convert results to json
-  results_json = results.to_json(orient='records') 
-
-  return results_json
-
-# Route to international api
-@app.route("/api/international")
-def api_international():
-  # Read in low budget table
-  results = pd.read_sql('SELECT * FROM international', db)
-
-  # Convert results to json
-  results_json = results.to_json(orient='records') 
-
-  return results_json
-
-# Route to no filter api
-@app.route("/api/no_filter")
-def api_no_filter():
-  # Read in low budget table
-  results = pd.read_sql('SELECT * FROM no_filter', db)
-
-  # Convert results to json
-  results_json = results.to_json(orient='records') 
-
-  return results_json
-# END OF ADDED: FOR SQL
-
-
-
 # Route to index.html template
 @app.route("/")
 def index():
@@ -152,6 +104,52 @@ def explore_pop_lowbudget():
 def explore_unpop_lowbudget():
   # Direct to explore.html
   return render_template("em_unpop_low.html")
+
+# JULIA ADDED: FOR SQL
+# Route to low budget api
+@app.route("/api/low_budget")
+def api_low_budget():
+  # Read in low budget table
+  results = pd.read_sql('SELECT * FROM low_budget', db)
+
+  # Convert results to json
+  results_json = results.to_json(orient='records') 
+
+  return results_json
+  
+# Route to female api
+@app.route("/api/female_led")
+def api_female_led():
+  # Read in low budget table
+  results = pd.read_sql('SELECT * FROM female_led', db)
+
+  # Convert results to json
+  results_json = results.to_json(orient='records') 
+
+  return results_json
+
+# Route to international api
+@app.route("/api/international")
+def api_international():
+  # Read in low budget table
+  results = pd.read_sql('SELECT * FROM international', db)
+
+  # Convert results to json
+  results_json = results.to_json(orient='records') 
+
+  return results_json
+
+# Route to no filter api
+@app.route("/api/no_filter")
+def api_no_filter():
+  # Read in low budget table
+  results = pd.read_sql('SELECT * FROM no_filter', db)
+
+  # Convert results to json
+  results_json = results.to_json(orient='records') 
+
+  return results_json
+# END OF ADDED: FOR SQL
 
 if __name__ == "__main__":
   app.run()
